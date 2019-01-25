@@ -26,7 +26,6 @@ public class WebConfig {
 		templateResolver.setCharacterEncoding("UTF-8");
 		templateResolver.setCacheable(true);
 		templateResolver.setTemplateMode(TemplateMode.HTML);
-		templateResolver.setOrder(0);
 		return templateResolver;
 	}
 
