@@ -2,6 +2,8 @@
 
 Spring 專案練習
 
+[簡報](https://slides.com/rickyjian/springmagicbook/fullscreen)
+
 ## Branch
 
 ### master
