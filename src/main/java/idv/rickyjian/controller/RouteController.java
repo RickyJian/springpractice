@@ -1,5 +1,6 @@
 package idv.rickyjian.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +13,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import idv.rickyjian.bean.UserBean;
+import idv.rickyjian.service.UserService;
 
 // 設定 RouteController 為Controller
 @Controller
 public class RouteController {
+	
+	@Autowired
+	private UserService userService;
 	
 //	設定 login URL
 	@RequestMapping("/login")
@@ -62,8 +67,13 @@ public class RouteController {
 //		回傳資料型態轉成 JSON 格式
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode objectNode= objectMapper.createObjectNode();
-		objectNode.put("success",true);
-		objectNode.put("userName",userbean.getUserName());
+		boolean result = userService.isAccountValid(userbean.getUserName(), userbean.getPassword());
+		if (result) {
+			objectNode.put("success",true);
+			objectNode.put("userName",userbean.getUserName());
+		}else {
+			objectNode.put("success",false);
+		}
 		return objectMapper.writeValueAsString(objectNode);
 	}
 	
@@ -74,8 +84,13 @@ public class RouteController {
 //		回傳資料型態轉成 JSON 格式
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode objectNode= objectMapper.createObjectNode();
-		objectNode.put("success",true);
-		objectNode.put("userName",userName);
+		boolean result = userService.isAccountValid(userName, password);
+		if (result) {
+			objectNode.put("success",true);
+			objectNode.put("userName",userName);
+		}else {
+			objectNode.put("success",false);
+		}
 		return objectMapper.writeValueAsString(objectNode);
 	}
 	
