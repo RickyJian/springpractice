@@ -26,7 +26,7 @@ public class RouteController {
 	@RequestMapping("/login")
 	public ModelAndView login() {
 //		導頁至 login.html
-		return new ModelAndView("login");
+		return new ModelAndView("login","message","登入提示訊息。");
 	}
 	
 //	設定 index URL
@@ -87,6 +87,7 @@ public class RouteController {
 			objectNode.put("userName",userBean.getUserName());
 		}else {
 			objectNode.put("success",false);
+			objectNode.put("message","登入失敗。");
 		}
 		return objectMapper.writeValueAsString(objectNode);
 	}
@@ -104,6 +105,7 @@ public class RouteController {
 			objectNode.put("userName",userName);
 		}else {
 			objectNode.put("success",false);
+			objectNode.put("message","登入失敗。");
 		}
 		return objectMapper.writeValueAsString(objectNode);
 	}
