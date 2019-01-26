@@ -1,7 +1,5 @@
 package idv.rickyjian.dao.impl;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-
 import java.io.Serializable;
 import java.util.List;
 

@@ -33,7 +33,9 @@ public class RouteController {
 //	取出url參數
 	@RequestMapping("/{userName}")
 	public ModelAndView index(@PathVariable("userName") String userName) {
-		return new ModelAndView("index","userName",userName);
+//		搜尋使用者資料
+		UserBean resultBean = userService.getById(userName);
+		return new ModelAndView("index","userBean",resultBean);
 	}
 	
 	
@@ -45,10 +47,12 @@ public class RouteController {
 		boolean result = userService.isAccountValid(userName, password);
 		ModelAndView mav = null;
 		if(result) {
+//		搜尋使用者資料
+			UserBean resultBean = userService.getById(userName);
 //		設定回傳頁面
 //		導頁至 login.html
 			mav =  new ModelAndView("index");
-			mav.addObject("userName",userName);
+			mav.addObject("userBean",resultBean);
 		}else {
 			mav =  new ModelAndView("login");
 			mav.addObject("message","登入失敗");
@@ -63,10 +67,12 @@ public class RouteController {
 		boolean result = userService.isAccountValid(userBean.getUserName(), userBean.getPassword());
 		ModelAndView mav = null;
 		if(result) {
+//		搜尋使用者資料
+			UserBean resultBean = userService.getById(userBean.getUserName());
 //		設定回傳頁面
 //		導頁至 login.html
 			mav =  new ModelAndView("index");
-			mav.addObject("userName",userBean.getUserName());
+			mav.addObject("userBean",resultBean);
 		}else {
 			mav =  new ModelAndView("login");
 			mav.addObject("message","登入失敗");
@@ -83,6 +89,7 @@ public class RouteController {
 		ObjectNode objectNode= objectMapper.createObjectNode();
 		boolean result = userService.isAccountValid(userBean.getUserName(), userBean.getPassword());
 		if (result) {
+//			搜尋使用者資料
 			objectNode.put("success",true);
 			objectNode.put("userName",userBean.getUserName());
 		}else {

@@ -29,4 +29,18 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public UserBean getById(String userName) {
+		UserAccount user = userDAO.getById(userName);
+		if (user!=null) {
+			UserBean resultBean = new UserBean();
+			resultBean.setPassword(user.getPassword());
+			resultBean.setUserName(user.getUserName());
+			resultBean.setGender(user.getGender());
+			return resultBean;
+		}
+		return null;
+	}
+
+
 }

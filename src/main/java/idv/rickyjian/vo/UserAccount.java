@@ -14,6 +14,7 @@ public class UserAccount implements java.io.Serializable {
 
 	private String userName;
 	private String password;
+	private String gender;
 
 	public UserAccount() {
 	}
@@ -21,6 +22,13 @@ public class UserAccount implements java.io.Serializable {
 	public UserAccount(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
+	}
+	
+
+	public UserAccount(String userName, String password, String gender) {
+		this.userName = userName;
+		this.password = password;
+		this.gender = gender;
 	}
 
 	@Id
@@ -42,5 +50,13 @@ public class UserAccount implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	@Column(name = "gender", nullable = true, length = 10)
+	public String getGender() {
+		return gender;
+	}
 
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 }
