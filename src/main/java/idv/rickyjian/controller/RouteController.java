@@ -42,35 +42,49 @@ public class RouteController {
 //	submit + 指定參數
 	@RequestMapping("/loginsubmit")
 	public ModelAndView submit(@RequestParam String userName , String password) {
+		boolean result = userService.isAccountValid(userName, password);
+		ModelAndView mav = null;
+		if(result) {
 //		設定回傳頁面
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("userName",userName);
 //		導頁至 login.html
+			mav =  new ModelAndView("index");
+			mav.addObject("userName",userName);
+		}else {
+			mav =  new ModelAndView("login");
+			mav.addObject("message","登入失敗");
+		}
 		return mav;
 	}
 	
 //	login 處理
 //	submit + 封裝成 bean
 	@RequestMapping("/loginsubmitwithbean")
-	public ModelAndView submit(UserBean userbean) {
+	public ModelAndView submit(UserBean userBean) {
+		boolean result = userService.isAccountValid(userBean.getUserName(), userBean.getPassword());
+		ModelAndView mav = null;
+		if(result) {
 //		設定回傳頁面
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("userName",userbean.getUserName());
 //		導頁至 login.html
+			mav =  new ModelAndView("index");
+			mav.addObject("userName",userBean.getUserName());
+		}else {
+			mav =  new ModelAndView("login");
+			mav.addObject("message","登入失敗");
+		}
 		return mav;
 	}
 	
 //	login 處理
 //	AJAX + 封裝成 bean
 	@RequestMapping("/dologinwithform")
-	public @ResponseBody String dologin(UserBean userbean) throws JsonProcessingException {
+	public @ResponseBody String dologin(UserBean userBean) throws JsonProcessingException {
 //		回傳資料型態轉成 JSON 格式
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode objectNode= objectMapper.createObjectNode();
-		boolean result = userService.isAccountValid(userbean.getUserName(), userbean.getPassword());
+		boolean result = userService.isAccountValid(userBean.getUserName(), userBean.getPassword());
 		if (result) {
 			objectNode.put("success",true);
-			objectNode.put("userName",userbean.getUserName());
+			objectNode.put("userName",userBean.getUserName());
 		}else {
 			objectNode.put("success",false);
 		}
