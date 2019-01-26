@@ -1,7 +1,7 @@
 USE [springpractice]
 GO
 
-/****** Object:  Table [dbo].[user_account]    Script Date: 2019/1/26 ¤U¤È 09:26:11 ******/
+/****** Object:  Table [dbo].[user_account]    Script Date: 2019/1/26 ¤U¤È 11:59:38 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,6 +11,7 @@ GO
 CREATE TABLE [dbo].[user_account](
 	[user_name] [varchar](25) NOT NULL,
 	[password] [varchar](50) NOT NULL,
+	[gender] [varchar](10) NULL,
  CONSTRAINT [PK_user_account] PRIMARY KEY CLUSTERED 
 (
 	[user_name] ASC
