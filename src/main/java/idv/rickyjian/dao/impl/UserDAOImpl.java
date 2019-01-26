@@ -20,7 +20,7 @@ public class UserDAOImpl extends BaseDAOImpl<UserAccount> implements UserDAO {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(UserAccount.class);
 		if(userBean!=null) {
 			String userName = userBean.getUserName();
-			String password = userBean.getPassword()
+			String password = userBean.getPassword();
 			if(userName!=null&&!userBean.equals("")) {
 				detachedCriteria.add(Restrictions.eq("userName", userName));
 			}
