@@ -4,42 +4,67 @@
 <meta charset="UTF-8">
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-function doLogin(){
+function doLoginWithForm(){
 	$.ajax({
         type: "POST",
-        url:  "/springpractice/dologin",
-        data: {
-            "tableName": tableName,
-            "columeName": "property"
-        },
+        url:  "/springpractice/dologinwithform",
+        data: $("#userForm").serialize(),
         dataType: 'json',
         async: false,
         success: function(data){
-	});
+            if(data.success){
+				window.location = "/springpractice/"+data.userName
+            }
+        }
+    });
+}
+function doLogin(){
+	$.ajax({
+        type: "POST",
+        url:  "/springpractice/dologinwithform",
+        data:{
+            "userName":$("#userName").val(),
+            "password":$("#password").val()
+            },
+        dataType: 'json',
+        async: false,
+        success: function(data){
+            if(data.success){
+				window.location = "/springpractice/"+data.userName
+            }
+        }
+    });
 }
 </script>
 <title>登入</title>
 </head>
 <body>
-<h1>前端傳值 submit</h1>
+<h1>前端傳值 submit(指定參數)</h1>
 <form action="loginsubmit" method= "POST">
 	帳號：<input type = "text" name ="userName" /><br>
 	密碼：<input type = "password" name ="password" /><br>
 	<input type="submit" value="Submit">
 </form>
 
-
-<h1>前端傳值 AJAX(序列化)</h1>
-<form>
+<h1>前端傳值 submit(封裝成bean)</h1>
+<form action="loginsubmitwithbean" method= "POST">
 	帳號：<input type = "text" name ="userName" /><br>
 	密碼：<input type = "password" name ="password" /><br>
-	<input type="button" value="送出" onclick="doLogin()"/>
+	<input type="submit" value="Submit">
+</form>
+
+
+<h1>前端傳值 AJAX(封裝成bean)</h1>
+<form id = "userForm">
+	帳號：<input type = "text" name ="userName" /><br>
+	密碼：<input type = "password" name ="password" /><br>
+	<input type="button" value="送出" onclick="doLoginWithForm()"/>
 </form>
 
 <h1>前端傳值 AJAX(指定參數)</h1>
-<form>
-	帳號：<input type = "text" name ="userName" /><br>
-	密碼：<input type = "password" name ="password" /><br>
+<form > 
+	帳號：<input type = "text" id = "userName" name ="userName" /><br>
+	密碼：<input type = "password" id = "password" name ="password" /><br>
 	<input type="button" value="送出" onclick="doLogin()"/>
 </form>
 
