@@ -25,6 +25,7 @@ public class RouteController {
 	}
 	
 //	設定 index URL
+//	取出url參數
 	@RequestMapping("/{userName}")
 	public ModelAndView index(@PathVariable("userName") String userName) {
 		return new ModelAndView("index","userName",userName);
@@ -58,7 +59,7 @@ public class RouteController {
 //	AJAX + 封裝成 bean
 	@RequestMapping("/dologinwithform")
 	public @ResponseBody String dologin(UserBean userbean) throws JsonProcessingException {
-//		回傳資料轉成 JSON 格式
+//		回傳資料型態轉成 JSON 格式
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode objectNode= objectMapper.createObjectNode();
 		objectNode.put("success",true);
@@ -70,7 +71,7 @@ public class RouteController {
 //	AJAX + 指定參數
 	@RequestMapping("/dologin")
 	public @ResponseBody String dologin(@RequestParam String userName , String password) throws JsonProcessingException {
-//		回傳資料轉成 JSON 格式
+//		回傳資料型態轉成 JSON 格式
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode objectNode= objectMapper.createObjectNode();
 		objectNode.put("success",true);
